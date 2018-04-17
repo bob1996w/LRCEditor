@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LRCEditor
+namespace LRCEditor.View
 {
     /// <summary>
-    /// MainWindow.xaml 的互動邏輯
+    /// AboutWindow.xaml 的互動邏輯
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AboutWindow : Window
     {
-        public MainWindow()
+        public AboutWindow()
         {
             InitializeComponent();
+        }
+
+        private void btn_about_close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

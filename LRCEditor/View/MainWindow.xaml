@@ -1,0 +1,157 @@
+﻿<Window x:Class="LRCEditor.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LRCEditor"
+        mc:Ignorable="d"
+        Title="{Binding windowTitle}" Height="450" Width="800" MinWidth="600" Closed="Window_Closed" SizeToContent="Height" Closing="Window_Closing">
+    <Window.Resources>
+        <ResourceDictionary Source="../Resources/Strings/lang-en_US.xaml"/>
+    </Window.Resources>
+    <Window.InputBindings>
+        <!-- menu/file -->
+        <KeyBinding Command="{Binding Cmd_newLyric}" Gesture="Ctrl+N"/>
+        <KeyBinding Command="{Binding Cmd_loadMusicDialog}" Gesture="Ctrl+Shift+O"/>
+        <KeyBinding Command="{Binding Cmd_loadLyricDialog}" Gesture="Ctrl+O"/>
+        <KeyBinding Command="{Binding Cmd_saveLyric}" Gesture="Ctrl+S"/>
+        <KeyBinding Command="{Binding Cmd_exit}" Gesture="Alt+F4"/>
+        <KeyBinding Command="{Binding Cmd_exit}" Gesture="Ctrl+Q"/>
+
+        <!-- menu/control -->
+        <KeyBinding Command="{Binding Cmd_playPause}" Gesture="F3"/>
+        <KeyBinding Command="{Binding Cmd_rew}" Gesture="F2"/>
+        <KeyBinding Command="{Binding Cmd_ff}" Gesture="F4"/>
+        <KeyBinding Command="{Binding Cmd_insertTimeTag}" Gesture="F6"/>
+        <KeyBinding Command="{Binding Cmd_replaceTimeTag}" Gesture="F7"/>
+        <!-- menu/util -->
+
+        <!-- menu/help -->
+        <KeyBinding Command="{Binding Cmd_toggleLyricEditArea}" Gesture="F10"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="menubar" Grid.Row="0">
+            <MenuItem Header="{DynamicResource s_menu_file}">
+                <MenuItem Header="{DynamicResource s_menu_file_newLyric}" Command="{Binding Cmd_newLyric}" InputGestureText="Ctrl+N"/>
+                <Separator/>
+                <MenuItem Header="{DynamicResource s_menu_file_loadMusic}" Command="{Binding Cmd_loadMusicDialog}" InputGestureText="Ctrl+Shift+O"/>
+                <MenuItem Header="{DynamicResource s_menu_file_loadLyric}" Command="{Binding Cmd_loadLyricDialog}" InputGestureText="Ctrl+O"/>
+                <Separator/>
+                <MenuItem Header="{DynamicResource s_menu_file_saveLyric}" Command="{Binding Cmd_saveLyric}" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="{DynamicResource s_menu_file_saveLyricAs}" Command="{Binding Cmd_saveLyricAs}"/>
+                <Separator/>
+                <MenuItem Header="{DynamicResource s_menu_file_exit}" Command="{Binding Cmd_exit}" InputGestureText="Ctrl+Q"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource s_menu_control}">
+                <MenuItem Header="{DynamicResource s_menu_control_play}" Command="{Binding Cmd_playPause}" InputGestureText="F3"/>
+                <MenuItem Header="{DynamicResource s_menu_control_rew}" Command="{Binding Cmd_rew}" InputGestureText="F2"/>
+                <MenuItem Header="{DynamicResource s_menu_control_ff}" Command="{Binding Cmd_ff}" InputGestureText="F4"/>
+                <Separator />
+                <MenuItem Header="{DynamicResource s_menu_control_insertTag}" Command="{Binding Cmd_insertTimeTag}" InputGestureText="F6"/>
+                <MenuItem Header="{DynamicResource s_menu_control_replaceTag}" Command="{Binding Cmd_replaceTimeTag}" InputGestureText="F7"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource s_menu_util}">
+                <MenuItem Header="{DynamicResource s_menu_util_removeAllTag}" Command="{Binding Cmd_removeAllTag}"></MenuItem>
+                <Separator />
+                <MenuItem Header="{DynamicResource s_menu_help_toggleLyricEditArea}" Command="{Binding Cmd_toggleLyricEditArea}" InputGestureText="F10"
+                          IsCheckable="True" IsChecked="{Binding IsLyricAreaDisplayed}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource s_menu_help}">
+                <MenuItem Header="{DynamicResource s_menu_help_about}" Command="{Binding Cmd_showAbout}"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Style="{DynamicResource ElementBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button x:Name="btn_rew" Style="{DynamicResource ControlButton}" Command="{Binding Cmd_rew}">backward</Button>
+                        <Button x:Name="btn_play" Style="{DynamicResource ControlButton}" Command="{Binding Cmd_playPause}" Content="{Binding playIcon}"></Button>
+                        <Button x:Name="btn_ff" Style="{DynamicResource ControlButton}" Command="{Binding Cmd_ff}">forward</Button>
+                        <Label x:Name="label_time" Style="{DynamicResource TimeLabel}" Content="{Binding _pos, FallbackValue='00:00.00'}" ContentStringFormat="{}{0:mm\:ss\.ff}"></Label>
+                        <Label x:Name="slash" Style="{DynamicResource TimeLabel}">/</Label>
+                        <Label x:Name="label_length" Style="{DynamicResource TimeLabel}" Content="{Binding _len, FallbackValue='00:00.00'}" ContentStringFormat="{}{0:mm\:ss\.ff}"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="label_vol" Style="{DynamicResource AwesomeFontLabel}">&#xf026;</Label>
+                        <Slider x:Name="slider_vol" Style="{DynamicResource VolumeSlider}" Minimum="0" Maximum="100" Value="{Binding _vol, FallbackValue=100}"></Slider>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Padding="5">
+                <Slider x:Name="slider_pos" Value="{Binding d_pos}">
+                    <Slider.Maximum>
+                        <Binding Path="_len.TotalMilliseconds"></Binding>
+                    </Slider.Maximum>
+                </Slider>
+            </Border>
+        </Grid>
+        <Grid x:Name="lyric_edit_area" Grid.Row="2" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Style="{DynamicResource ElementBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                        <!--
+                        <Button x:Name="btn_loadMusic" Style="{DynamicResource SideButton}" Content="{DynamicResource s_btn_loadMusic}" Command="{Binding Cmd_loadMusicDialog}"></Button>
+                        <Button x:Name="btn_loadLyric" Style="{DynamicResource SideButton}" Content="{DynamicResource s_btn_loadLyric}" Command="{Binding Cmd_loadLyricDialog}"></Button>
+                        
+                        <Separator />
+                        -->
+                        <Label x:Name="lb_setCaret" Style="{DynamicResource SideLabelHeader}" Content="{DynamicResource s_label_caretOptionHeader}"></Label>
+                        <Button x:Name="btn_moveCaretToFileTop" Style="{DynamicResource SideButton}" Content="{DynamicResource s_btn_moveCaretToFileTop}" Command="{Binding Cmd_moveCaretToFileTop}"></Button>
+                        <Button x:Name="btn_moveCaretToLineHead" Style="{DynamicResource SideButton}" Content="{DynamicResource s_btn_moveCaretToLineHead}" Command="{Binding Cmd_moveCaretToLineHead}"></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
+                        <Button x:Name="btn_inputTimeTag" Style="{DynamicResource InputTagButton}" Content="{DynamicResource s_btn_inputTag}" Command="{Binding Cmd_insertTimeTag}"></Button>
+                    </StackPanel>
+                </Grid>
+
+            </Border>
+            <Border Grid.Column="1" Style="{DynamicResource ElementBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" x:Name="label_musicFile_header" Content="{DynamicResource s_label_musicFileHeader}"></Label>
+                        <Label Grid.Column="1" x:Name="label_musicFile" Content="{Binding MusicFilename}"></Label>
+                    </Grid>
+                    <Border Grid.Row="2">
+                        <TextBox x:Name="tb_lyric" TextWrapping="NoWrap"  AcceptsReturn="True" MaxLines="20"
+                             HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextChanged="tb_lyric_TextChanged">
+
+                        </TextBox>
+                    </Border>
+                </Grid>
+
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+﻿<Window x:Class="LRCEditor.View.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LRCEditor.View"
+        mc:Ignorable="d"
+        Title="AboutWindow" Height="250" Width="400" ResizeMode="NoResize" WindowStyle="ToolWindow" >
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <Label Style="{DynamicResource AboutTitle}" >LRCEditor</Label>
+        </Border>
+        <Border Grid.Row="1">
+            <TextBlock Style="{DynamicResource AboutContent}">Author: bob1996w</TextBlock>
+        </Border>
+        <Border Grid.Row="2">
+            <Button x:Name="btn_about_close" Click="btn_about_close_Click">Close window</Button>
+        </Border>
+    </Grid>
+</Window>
