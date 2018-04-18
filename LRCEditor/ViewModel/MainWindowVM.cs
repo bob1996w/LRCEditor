@@ -50,8 +50,12 @@ namespace LRCEditor.ViewModel
         public bool LyricChanged { get => lyricChanged; set { lyricChanged = value; NotifyAllProperties(); } }
         private bool hasSaved = false;
         public bool HasSaved { get => hasSaved; set => hasSaved = value; }
-        private string savedPath = "";
-        public string SavedPath { get => savedPath; set => savedPath = value; }
+        private string savedLyricPath = "";
+        public string SavedLyricPath { get => savedLyricPath; set => savedLyricPath = value; }
+        private string savedInitialDir = "";
+        public string SavedInitialDir { get => savedInitialDir; set => savedInitialDir = value; }
+        private string savedLyricPresetFilename = "";
+        public string SavedLyricPresetFilename { get => savedLyricPresetFilename; set => savedLyricPresetFilename = value; }
 
         public double savedCollapsedHeight = SystemParameters.WindowCaptionHeight + SystemParameters.ResizeFrameHorizontalBorderHeight*2 + 118 + SystemParameters.FixedFrameHorizontalBorderHeight*2 + +SystemParameters.BorderWidth*2;
         public double savedWindowHeight;
@@ -75,15 +79,21 @@ namespace LRCEditor.ViewModel
         public ICommand Cmd_newLyric { get => new RelayCommand(On_newLyric, () => true); }
         void On_newLyric()
         {
+            bool isNewLyric = false;
             if (LyricChanged)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show((String)App.MainWin.Resources["m_c_confirmNewLyric"],
                 (String)App.MainWin.Resources["m_t_confirmNewLyric"], MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    tb.Text = "";
-                    LyricChanged = false;
-                }
+                    isNewLyric = true;
+            }
+            else
+                isNewLyric = true;
+            if (isNewLyric)
+            {
+                tb.Text = "";
+                LyricChanged = false;
+                HasSaved = false;
             }
         }
 
@@ -121,6 +131,8 @@ namespace LRCEditor.ViewModel
         private void LoadMusicFile(string filepath)
         {
             PM.Open(filepath);
+            SavedInitialDir = Path.GetDirectoryName(filepath);
+            SavedLyricPresetFilename = Path.GetFileNameWithoutExtension(filepath) + ".lrc";
             NotifyAllProperties();
             MusicFilename = filepath;
             NotifyAllProperties();
@@ -146,6 +158,7 @@ namespace LRCEditor.ViewModel
             {
                 using (var ofd = new System.Windows.Forms.OpenFileDialog())
                 {
+                    ofd.InitialDirectory = SavedInitialDir;
                     ofd.Filter = (string)App.MainWin.Resources["ofdf_lyric"];
                     switch (ofd.ShowDialog())
                     {
@@ -175,6 +188,8 @@ namespace LRCEditor.ViewModel
 
         void LoadLyricFile(string filepath)
         {
+            SavedLyricPath = filepath;
+            HasSaved = true;
             string textContent = File.ReadAllText(filepath);
             tb.Text = textContent;
         }
@@ -185,7 +200,7 @@ namespace LRCEditor.ViewModel
             if (!HasSaved)
                 OpenSaveFileDialog();
             else
-                SaveLyric(SavedPath);
+                SaveLyric(SavedLyricPath);
         }
 
         public ICommand Cmd_saveLyricAs { get => new RelayCommand(On_saveLyricAs, () => true); }
@@ -200,6 +215,8 @@ namespace LRCEditor.ViewModel
             using (var sfd = new System.Windows.Forms.SaveFileDialog())
             {
                 sfd.Filter = (string)App.MainWin.Resources["sfdf_lyric"];
+                sfd.InitialDirectory = SavedInitialDir;
+                sfd.FileName = SavedLyricPresetFilename;
                 switch (sfd.ShowDialog())
                 {
                     case System.Windows.Forms.DialogResult.None:
@@ -233,7 +250,7 @@ namespace LRCEditor.ViewModel
             {
                 fileWriter.Write(fileContent);
             }
-            SavedPath = filepath;
+            SavedLyricPath = filepath;
             HasSaved = true;
             LyricChanged = false;
         }
