@@ -21,10 +21,14 @@
     <s:String x:Key="s_menu_control_ff">_Fast forward 5 seconds</s:String>
     <s:String x:Key="s_menu_control_insertTag">_Insert time tag</s:String>
     <s:String x:Key="s_menu_control_replaceTag">R_eplace time tag</s:String>
+    <s:String x:Key="s_menu_control_insertTagOnNewLine">Insert time tag on _new line</s:String>
 
     <s:String x:Key="s_menu_util">_Utilities</s:String>
     <s:String x:Key="s_menu_util_removeAllTag">_Remove all tags</s:String>
-    
+
+    <s:String x:Key="s_menu_option">_Option</s:String>
+    <s:String x:Key="s_menu_option_language">_Language</s:String>
+
     <s:String x:Key="s_menu_help">_Help</s:String>
     <s:String x:Key="s_menu_help_toggleLyricEditArea">Toggle _lyric edit area</s:String>
     <s:String x:Key="s_menu_help_about">_About</s:String>
@@ -41,7 +45,7 @@
     <s:String x:Key="s_label_caretOptionHeader">Move caret</s:String>
     
     <!-- Messege Boxes: t=title, c=content -->
-    <s:String x:Key="m_t_confirmRemoveAllTag">Remove all time tags?</s:String>
+    <s:String x:Key="m_t_confirmRemoveAllTag">Remove all time tags</s:String>
     <s:String x:Key="m_c_confirmRemoveAllTag">Are you sure?</s:String>
     <s:String x:Key="m_t_confirmLoadLyric">Load lyric file</s:String>
     <s:String x:Key="m_c_confirmLoadLyric">There are unsaved changes. Discard all current lyrics?</s:String>
@@ -50,4 +54,7 @@
     <s:String x:Key="m_t_confirmNewLyric">New lyric</s:String>
     <s:String x:Key="m_c_confirmNewLyric">There are unsaved changes. Discard all and start new file?</s:String>
     
+    <!-- Languages -->
+    <s:String x:Key="s_lang_en_US">English</s:String>
+    <s:String x:Key="s_lang_zh_TW">繁體中文 (Traditional Chinese)</s:String>
 </ResourceDictionary>

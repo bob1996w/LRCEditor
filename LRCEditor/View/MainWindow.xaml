@@ -24,6 +24,7 @@
         <KeyBinding Command="{Binding Cmd_ff}" Gesture="F4"/>
         <KeyBinding Command="{Binding Cmd_insertTimeTag}" Gesture="F6"/>
         <KeyBinding Command="{Binding Cmd_replaceTimeTag}" Gesture="F7"/>
+        <KeyBinding Command="{Binding Cmd_insertTagOnNewLine}" Gesture="F8"/>
         <!-- menu/util -->
 
         <!-- menu/help -->
@@ -55,6 +56,13 @@
                 <Separator />
                 <MenuItem Header="{DynamicResource s_menu_control_insertTag}" Command="{Binding Cmd_insertTimeTag}" InputGestureText="F6"/>
                 <MenuItem Header="{DynamicResource s_menu_control_replaceTag}" Command="{Binding Cmd_replaceTimeTag}" InputGestureText="F7"/>
+                <MenuItem Header="{DynamicResource s_menu_control_insertTagOnNewLine}" Command="{Binding Cmd_insertTagOnNewLine}" InputGestureText="F8"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource s_menu_option}">
+                <MenuItem Header="{DynamicResource s_menu_option_language}">
+                    <MenuItem Header="{DynamicResource s_lang_en_US}" Command="{Binding Cmd_changeLanguage}" CommandParameter="en_US"></MenuItem>
+                    <MenuItem Header="{DynamicResource s_lang_zh_TW}" Command="{Binding Cmd_changeLanguage}" CommandParameter="zh_TW"></MenuItem>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource s_menu_util}">
                 <MenuItem Header="{DynamicResource s_menu_util_removeAllTag}" Command="{Binding Cmd_removeAllTag}"></MenuItem>
@@ -62,6 +70,7 @@
                 <MenuItem Header="{DynamicResource s_menu_help_toggleLyricEditArea}" Command="{Binding Cmd_toggleLyricEditArea}" InputGestureText="F10"
                           IsCheckable="True" IsChecked="{Binding IsLyricAreaDisplayed}"></MenuItem>
             </MenuItem>
+            
             <MenuItem Header="{DynamicResource s_menu_help}">
                 <MenuItem Header="{DynamicResource s_menu_help_about}" Command="{Binding Cmd_showAbout}"></MenuItem>
             </MenuItem>
@@ -138,14 +147,15 @@
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" x:Name="label_musicFile_header" Content="{DynamicResource s_label_musicFileHeader}"></Label>
                         <Label Grid.Column="1" x:Name="label_musicFile" Content="{Binding MusicFilename}"></Label>
                     </Grid>
                     <Border Grid.Row="2">
-                        <TextBox x:Name="tb_lyric" TextWrapping="NoWrap"  AcceptsReturn="True" MaxLines="20"
-                             HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextChanged="tb_lyric_TextChanged">
+                        <TextBox x:Name="tb_lyric" TextWrapping="NoWrap"  AcceptsReturn="True" MinLines="5"
+                             HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextChanged="tb_lyric_TextChanged"
+                             SizeChanged="tb_lyric_SizeChanged">
 
                         </TextBox>
                     </Border>

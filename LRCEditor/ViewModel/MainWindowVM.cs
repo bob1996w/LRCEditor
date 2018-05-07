@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -293,11 +294,45 @@ namespace LRCEditor.ViewModel
             int lineIdx = tb.GetLineIndexFromCharacterIndex(tb.CaretIndex);
             int lineFirstCharIdx = tb.GetCharacterIndexFromLineIndex(lineIdx);
             tb.Text = tb.Text.Insert(lineFirstCharIdx, nowTimeTag);
-            if(lineIdx + 1 < tb.LineCount)
-            {
-                tb.CaretIndex = tb.GetCharacterIndexFromLineIndex(lineIdx + 1);
-            }
-            tb.ScrollToLine(tb.GetLineIndexFromCharacterIndex(tb.CaretIndex));
+            MarkNextLyric(lineIdx);
+        }
+
+        public ICommand Cmd_replaceTimeTag { get => new RelayCommand(On_replaceTimeTag, () => true); }
+        void On_replaceTimeTag()
+        {
+            string nowTimeTag = "[" + _pos.ToString(@"mm\:ss\.ff") + "]";
+            int lineIdx = tb.GetLineIndexFromCharacterIndex(tb.CaretIndex);
+            int lineFirstCharIdx = tb.GetCharacterIndexFromLineIndex(lineIdx);
+            int lineLength = tb.GetLineLength(lineIdx);
+            var lyricNowLine = tb.GetLineText(lineIdx);
+            var lyricText = tb.Text;
+            lyricText = lyricText.Remove(lineFirstCharIdx, lineLength);
+            var re_Tag = new Regex(@"\[[0-9]*\:[0-9]*[\:\.][0-9]*\]");
+            lyricNowLine = re_Tag.Replace(lyricNowLine, "");
+            lyricNowLine = nowTimeTag + lyricNowLine;
+            lyricText = lyricText.Insert(lineFirstCharIdx, lyricNowLine);
+            tb.Text = lyricText;
+            MarkNextLyric(tb.GetLineIndexFromCharacterIndex(lineFirstCharIdx + lineLength - 1));
+        }
+        public ICommand Cmd_insertTagOnNewLine { get => new RelayCommand(On_insertTagOnNewLine, () => true); }
+        void On_insertTagOnNewLine()
+        {
+            string nowTimeTag = "[" + _pos.ToString(@"mm\:ss\.ff") + "]";
+            int lineIdx = tb.GetLineIndexFromCharacterIndex(tb.CaretIndex);
+            int lineLastCharIdx = tb.GetCharacterIndexFromLineIndex(lineIdx) + tb.GetLineLength(lineIdx);
+            tb.Text = tb.Text.Insert(lineLastCharIdx, nowTimeTag + Environment.NewLine);
+            int newLineIdx = tb.GetLineIndexFromCharacterIndex(lineLastCharIdx + 1);
+            MarkNextLyric(newLineIdx);
+        }
+
+        public void MarkNextLyric(int lineIdx)
+        {
+            Debug.WriteLine($"Line {lineIdx}, tb.LineCount {tb.LineCount}");
+            int nextLineIdx = (lineIdx + 1 < tb.LineCount) ? lineIdx + 1: lineIdx;
+            Debug.WriteLine($"nextLine {nextLineIdx}");
+            tb.CaretIndex = tb.GetCharacterIndexFromLineIndex(nextLineIdx);
+            tb.ScrollToLine(nextLineIdx);
+            tb.Select(tb.CaretIndex, tb.GetLineLength(nextLineIdx));
         }
 
         public ICommand Cmd_moveCaretToFileTop { get => new RelayCommand(On_moveCaretToFileTop, () => true); }
@@ -327,26 +362,27 @@ namespace LRCEditor.ViewModel
             }
         }
 
-        public ICommand Cmd_replaceTimeTag { get => new RelayCommand(On_replaceTimeTag, () => true); }
-        void On_replaceTimeTag()
+        public ICommand Cmd_changeLanguage { get => new RelayCommand<String>(On_changeLanguage, (lang) => true); }
+        public void On_changeLanguage(string lang)
         {
-            string nowTimeTag = "[" + _pos.ToString(@"mm\:ss\.ff") + "]";
-            int lineIdx = tb.GetLineIndexFromCharacterIndex(tb.CaretIndex);
-            int lineFirstCharIdx = tb.GetCharacterIndexFromLineIndex(lineIdx);
-            int lineLength = tb.GetLineLength(lineIdx);
-            var lyricNowLine = tb.GetLineText(lineIdx);
-            var lyricText = tb.Text;
-            lyricText = lyricText.Remove(lineFirstCharIdx, lineLength);
-            var re_Tag = new Regex(@"\[[0-9]*\:[0-9]*[\:\.][0-9]*\]");
-            lyricNowLine = re_Tag.Replace(lyricNowLine, "");
-            lyricNowLine = nowTimeTag + lyricNowLine;
-            lyricText = lyricText.Insert(lineFirstCharIdx, lyricNowLine);
-            tb.Text = lyricText;
-
-            if (lineIdx + 1 < tb.LineCount)
+            Console.WriteLine($"Change Language: {lang}");
+            try
             {
-                tb.CaretIndex = tb.GetCharacterIndexFromLineIndex(lineIdx + 1);
+                App.settings.Lang = lang;
+                App.MainWin.Resources.Source =
+                    new Uri($@"..\Resources\Strings\lang-{lang}.xaml", UriKind.Relative);
             }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lang not found. Fallback to 'en_US'.\n{e}");
+                App.settings.Lang = "en_US";
+            }
+            
+        }
+        
+
+        public void AdjustLyricEditArea()
+        {
             tb.ScrollToLine(tb.GetLineIndexFromCharacterIndex(tb.CaretIndex));
         }
 

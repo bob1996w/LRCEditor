@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LRCEditor.Resources.Strings"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <!-- ofd filters -->
+    <s:String x:Key="ofdf_music">音樂檔案(*.mp3; *.flac; *.wav; *.aac)|*.mp3; *.flac; *.wav; *.aac</s:String>
+    <s:String x:Key="ofdf_lyric">歌詞檔案(*.lrc; *.txt)|*.lrc; *.txt|全部檔案 (*.*)|*.*</s:String>
+    <s:String x:Key="sfdf_lyric">歌詞檔案(*.lrc)|*.lrc|文字檔案 (*.txt)|*.txt|全部檔案 (*.*)|*.*</s:String>
+    <!-- Menu -->
+    <s:String x:Key="s_menu_file">檔案(_F)</s:String>
+    <s:String x:Key="s_menu_file_newLyric">新的歌詞(_N)</s:String>
+    <s:String x:Key="s_menu_file_loadMusic">載入音樂(_M)</s:String>
+    <s:String x:Key="s_menu_file_loadLyric">載入歌詞(_L)</s:String>
+    <s:String x:Key="s_menu_file_saveLyric">儲存歌詞(_S)</s:String>
+    <s:String x:Key="s_menu_file_saveLyricAs">另存歌詞(_A)</s:String>
+    <s:String x:Key="s_menu_file_exit">離開(_X)</s:String>
+
+    <s:String x:Key="s_menu_control">操作(_C)</s:String>
+    <s:String x:Key="s_menu_control_play">播放/暫停(_P)</s:String>
+    <s:String x:Key="s_menu_control_rew">倒退5秒(_R)</s:String>
+    <s:String x:Key="s_menu_control_ff">快進5秒(_F)</s:String>
+    <s:String x:Key="s_menu_control_insertTag">插入時間標籤(_I)</s:String>
+    <s:String x:Key="s_menu_control_replaceTag">取代時間標籤(_R)</s:String>
+    <s:String x:Key="s_menu_control_insertTagOnNewLine">在新的一行插入時間標籤(_N)</s:String>
+
+    <s:String x:Key="s_menu_util">工具(_U)</s:String>
+    <s:String x:Key="s_menu_util_removeAllTag">移除所有時間標籤(_R)</s:String>
+
+    <s:String x:Key="s_menu_option">設定(_O)</s:String>
+    <s:String x:Key="s_menu_option_language">語言(_L)</s:String>
+
+    <s:String x:Key="s_menu_help">幫助(_H)</s:String>
+    <s:String x:Key="s_menu_help_toggleLyricEditArea">顯示/隱藏歌詞編輯區(_L)</s:String>
+    <s:String x:Key="s_menu_help_about">關於(_A)</s:String>
+    
+    <!-- Button -->
+    <s:String x:Key="s_btn_loadMusic">載入音樂</s:String>
+    <s:String x:Key="s_btn_loadLyric">載入歌詞</s:String>
+    <s:String x:Key="s_btn_inputTag">插入時間標籤</s:String>
+    <s:String x:Key="s_btn_moveCaretToFileTop">到檔首</s:String>
+    <s:String x:Key="s_btn_moveCaretToLineHead">到行首</s:String>
+
+    <!-- Display Strings -->
+    <s:String x:Key="s_label_musicFileHeader">音樂檔案:</s:String>
+    <s:String x:Key="s_label_caretOptionHeader">移動游標</s:String>
+    
+    <!-- Messege Boxes: t=title, c=content -->
+    <s:String x:Key="m_t_confirmRemoveAllTag">移除所有時間標籤</s:String>
+    <s:String x:Key="m_c_confirmRemoveAllTag">你確定嗎？</s:String>
+    <s:String x:Key="m_t_confirmLoadLyric">載入歌詞檔案</s:String>
+    <s:String x:Key="m_c_confirmLoadLyric">有尚未儲存的變更。捨棄目前全部的歌詞？</s:String>
+    <s:String x:Key="m_t_confirmExit">離開LRCEditor</s:String>
+    <s:String x:Key="m_c_confirmExit">有尚未儲存的變更。確定要離開？</s:String>
+    <s:String x:Key="m_t_confirmNewLyric">新的歌詞</s:String>
+    <s:String x:Key="m_c_confirmNewLyric">有尚未儲存的變更。捨棄目前的變更並開新檔案？</s:String>
+
+    <!-- Languages -->
+    <s:String x:Key="s_lang_en_US">English (英文)</s:String>
+    <s:String x:Key="s_lang_zh_TW">繁體中文</s:String>
+</ResourceDictionary>

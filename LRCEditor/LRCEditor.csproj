@@ -74,8 +74,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\PlayerModule.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\BasicViewModel.cs" />
+    <Page Include="Resources\Strings\lang-zh_TW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Strings\lang-en_US.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

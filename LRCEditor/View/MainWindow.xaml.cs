@@ -28,6 +28,7 @@ namespace LRCEditor.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            App.settings.SaveSettings();
             App.PM.Dispose();
         }
 
@@ -46,6 +47,11 @@ namespace LRCEditor.View
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void tb_lyric_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            App.MainWinVM.AdjustLyricEditArea();
         }
     }
 }
