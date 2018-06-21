@@ -12,7 +12,7 @@ namespace LRCEditor.Model
     public class Settings
     {
         public static string XMLpath = "settings.xml";
-        public string version = "0.2";
+        public string version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         private string lang = "en_US";
 
         public string Lang { get => lang; set => lang = value; }

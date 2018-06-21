@@ -23,7 +23,7 @@ namespace LRCEditor.View
         {
             InitializeComponent();
         }
-
+        public string version => App.settings.version;
         private void btn_about_close_Click(object sender, RoutedEventArgs e)
         {
             Close();

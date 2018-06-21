@@ -36,7 +36,7 @@ namespace LRCEditor.ViewModel
 
 
         public string windowTitle =>
-            (LyricChanged) ? "*LRCEditor" : "LRCEditor";
+            ((LyricChanged) ? "*" : "") + "LRCEditor " + App.settings.version;
         public string playIcon =>
             (PM.PlaybackState == CSCore.SoundOut.PlaybackState.Playing) ? "pause" :
             (PM.PlaybackState == CSCore.SoundOut.PlaybackState.Paused) ? "play" : "play";

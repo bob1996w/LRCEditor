@@ -3,9 +3,9 @@
                     xmlns:local="clr-namespace:LRCEditor.Resources.Strings"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <!-- ofd filters -->
-    <s:String x:Key="ofdf_music">音樂檔案(*.mp3; *.flac; *.wav; *.aac)|*.mp3; *.flac; *.wav; *.aac</s:String>
-    <s:String x:Key="ofdf_lyric">歌詞檔案(*.lrc; *.txt)|*.lrc; *.txt|全部檔案 (*.*)|*.*</s:String>
-    <s:String x:Key="sfdf_lyric">歌詞檔案(*.lrc)|*.lrc|文字檔案 (*.txt)|*.txt|全部檔案 (*.*)|*.*</s:String>
+    <s:String x:Key="ofdf_music">音樂檔案(*.mp3;*.mpeg3;*.wav;*.wave;*.flac;*.fla;*.aiff;*.aif;*.aifc;*.aac;*.adt;*.adts;*.m2ts;*.mp2;*.3g2;*.3gp2;*.3gp;*.3gpp;*.m4a;*.m4v;*.mp4v;*.mp4;*.mov;*.asf;*.wm;*.wmv;*.wma;*.mp1;*.avi;*.ac3;*.ec3)|*.mp3;*.mpeg3;*.wav;*.wave;*.flac;*.fla;*.aiff;*.aif;*.aifc;*.aac;*.adt;*.adts;*.m2ts;*.mp2;*.3g2;*.3gp2;*.3gp;*.3gpp;*.m4a;*.m4v;*.mp4v;*.mp4;*.mov;*.asf;*.wm;*.wmv;*.wma;*.mp1;*.avi;*.ac3;*.ec3|全部檔案(*.*)|*.*</s:String>
+    <s:String x:Key="ofdf_lyric">歌詞檔案(*.lrc;*.txt)|*.lrc;*.txt|全部檔案 (*.*)|*.*</s:String>
+    <s:String x:Key="sfdf_lyric">歌詞檔案(*.lrc)|*.lrc|文字檔案(*.txt)|*.txt|全部檔案(*.*)|*.*</s:String>
     <!-- Menu -->
     <s:String x:Key="s_menu_file">檔案(_F)</s:String>
     <s:String x:Key="s_menu_file_newLyric">新的歌詞(_N)</s:String>

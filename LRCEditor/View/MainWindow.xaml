@@ -132,7 +132,12 @@
                         <Button x:Name="btn_moveCaretToLineHead" Style="{DynamicResource SideButton}" Content="{DynamicResource s_btn_moveCaretToLineHead}" Command="{Binding Cmd_moveCaretToLineHead}"></Button>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
-                        <Button x:Name="btn_inputTimeTag" Style="{DynamicResource InputTagButton}" Content="{DynamicResource s_btn_inputTag}" Command="{Binding Cmd_insertTimeTag}"></Button>
+                        <Button x:Name="btn_inputTimeTag" Style="{DynamicResource InputTagButton}"  Command="{Binding Cmd_insertTimeTag}">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource s_btn_inputTag}"></TextBlock>
+                                <TextBlock Text="F6" VerticalAlignment="Bottom" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </Grid>
 
